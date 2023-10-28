@@ -30,23 +30,17 @@ To get started with the Tetrator Calculator, you'll need Rust installed on your 
 
   Links to each of the dependencies on **Docs.rs**:
   
-  [num-bigint](https://docs.rs/num-bigint/latest/num_bigint/), 
-  
-  [num-traits](https://docs.rs/num-traits/latest/num_traits/), 
-  
-  [num-format](https://docs.rs/num-format/latest/num_format/), 
-  
-  [dialoguer](https://docs.rs/dialoguer/latest/dialoguer/)
+  - [num-bigint](https://docs.rs/num-bigint/latest/num_bigint/),   
+  - [num-traits](https://docs.rs/num-traits/latest/num_traits/), 
+  - [num-format](https://docs.rs/num-format/latest/num_format/),
+  - [dialoguer](https://docs.rs/dialoguer/latest/dialoguer/)
 
   **Crates.io**:
   
-  [num-bigint](https://crates.io/crates/num_bigint), 
-  
-  [num-traits](https://crates.io/crates/num_traits), 
-  
-  [num-format](https://crates.io/crates/num_format), 
-  
-  [dialoguer](https://crates.io/crates/dialoguer)
+  - [num-bigint](https://crates.io/crates/num_bigint),
+  - [num-traits](https://crates.io/crates/num_traits),
+  - [num-format](https://crates.io/crates/num_format),
+  - [dialoguer](https://crates.io/crates/dialoguer)
   
 
 ## Installation
@@ -66,25 +60,22 @@ Make sure you have Cargo (Rust's package manager) properly configured, and it wi
 
 4. Add all the necessary dependencies:
    
-  ```bash
-  cargo add num-bigint
-  ```
-
-  ```bash
-  cargo add num-traits
-  ```
-
-  ```bash
-  cargo add num-format
-  ```
-
-  ```bash
-  cargo add dialoguer
-  ```
+   ```rust
+   cargo add num-bigint
+   ```
+   ```rust
+   cargo add num-traits
+   ```
+   ```rust
+   cargo add num-format
+   ```
+   ```rust
+   cargo add dialoguer
+   ```
 
 5. Build and run the program using Cargo:
    
-   ```bash
+   ```rust
    cargo run --release
    ```
    
