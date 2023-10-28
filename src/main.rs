@@ -35,8 +35,10 @@ struct TetratorCalculator {
 
 // Define an implementation block for the TetratorCalculator struct
 impl TetratorCalculator {
+    
     // Define a public function named "new" that constructs a new TetratorCalculator instance and returns it
     pub fn new() -> Self {
+        
          // Initialize a new TetratorCalculator instance
          TetratorCalculator {
             base: ONE,  // Initializes the "base" field of the TetratorCalculator with a value represented by the constant ONE
