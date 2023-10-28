@@ -1,4 +1,4 @@
-name: Teration Build and Test
+name: Tetration-Calculattor
 
 on:
   push:
@@ -16,9 +16,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Install Dependencies
-      run: cargo fetch  # This will download and install the project's dependencies
-    - name: Build
-      run: cargo build --verbose
+      run: cargo fetch
+
+    - name: Build in Release Mode
+      run: cargo build --release --verbose
+
+    - name: Run Program in the Background
+      run: |
+        ./target/release/Tetration-Calculator &
+        sleep 60
+        
+    - name: Kill Program
+      run: pkill -f 'Tetration-Calculator'  # Replace 'your_program' with the actual program name
+
     - name: Run tests
       run: cargo test --verbose
