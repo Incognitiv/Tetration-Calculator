@@ -26,18 +26,13 @@ jobs:
     - name: Run the Program
       run: |
         executable=$(find . -name "tetration-calculator" -type f)
-        
+
         if [ -z "$executable" ]; then
           echo "Executable not found. Check your program name."
           exit 1
         fi
-        
-        $executable <<EOF
-        Enter
-        2
-        5
-        Enter  # Press Enter again to finish
-        EOF
+
+        cat .github/workflows/workflow_commands.txt | $executable
 
     - name: Wait or Forcefully Kill
       run: |
