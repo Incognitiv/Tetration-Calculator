@@ -33,25 +33,10 @@ jobs:
           exit 1
         fi
 
-        # Run the program using the 'expect' command to provide input from input.txt
-        expect -c "
-        spawn $executable
-        expect \"Enter\r\"
-        send \"Enter\n\"
-        expect \"2\r\"
-        send \"2\n\"
-        expect \"5\r\"
-        send \"5\n\"
-        expect \"Enter\r\"
-        send \"Enter\n\"
-        expect \"7\r\"
-        send \"7\n\"
-        expect \"3\r\"
-        send \"3\n\"
-        expect \"Enter\r\"
-        send \"Enter\n\"
-        interact
-        "
+        while read -r line; do
+          echo "$line"
+          echo "$line" | $executable
+        done < .github/workflows/workflow_commands.txt
 
     - name: Wait or Forcefully Kill
       run: |
