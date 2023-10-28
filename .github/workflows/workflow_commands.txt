@@ -1,0 +1,7 @@
+Enter
+2
+5
+Enter
+7
+3
+Enter
