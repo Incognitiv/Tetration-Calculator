@@ -25,7 +25,6 @@ jobs:
 
     - name: Run the Program
       run: |
-        # Find the binary executable produced by your Rust program
         executable=$(find . -name "tetration-calculator" -type f)
 
         if [ -z "$executable" ]; then
