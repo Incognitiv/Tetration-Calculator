@@ -26,6 +26,7 @@ To get started with the Tetrator Calculator, you'll need Rust installed on your 
   num-traits = "0.2.17"
   num-format = "0.4.4"
   dialoguer = "0.11.0"
+  structopt = "0.3.26"
   ```
 
   Links to each of the dependencies on **Docs.rs**:
@@ -33,14 +34,16 @@ To get started with the Tetrator Calculator, you'll need Rust installed on your 
   - [num-bigint](https://docs.rs/num-bigint/latest/num_bigint/),   
   - [num-traits](https://docs.rs/num-traits/latest/num_traits/), 
   - [num-format](https://docs.rs/num-format/latest/num_format/),
-  - [dialoguer](https://docs.rs/dialoguer/latest/dialoguer/)
+  - [dialoguer](https://docs.rs/dialoguer/latest/dialoguer/),
+  - [structopt](https://docs.rs/structopt/latest/structopt/)
 
   **Crates.io**:
   
   - [num-bigint](https://crates.io/crates/num_bigint),
   - [num-traits](https://crates.io/crates/num_traits),
   - [num-format](https://crates.io/crates/num_format),
-  - [dialoguer](https://crates.io/crates/dialoguer)
+  - [dialoguer](https://crates.io/crates/dialoguer),
+  - [structopt](https://crates.io/crates/structopt)
   
 
 ## Installation
@@ -72,6 +75,9 @@ Make sure you have Cargo (Rust's package manager) properly configured, and it wi
    ```rust
    cargo add dialoguer
    ```
+   ```rust
+   cargo add structopt
+   ```
 
 5. Build and run the program using Cargo:
    
@@ -98,6 +104,13 @@ Example:
   Result: 27
   Number of digits: 2
   Time taken: 15ms
+  ```
+
+Commandline Example:
+  ```bash
+  ./tetration_calculator<.exe> --base <value_1> --height <value_2>
+  <value_1> can be up to 100
+  <value_2> should rarely exceed 2, maybe 3, depends very much on your hardware
   ```
 
 ## Contributing
