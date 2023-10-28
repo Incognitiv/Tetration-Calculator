@@ -25,12 +25,23 @@ jobs:
 
     - name: Run the Program
       run: |
-        ./home/runner/work/Tetration-Calculator/Tetration-Calculator <<EOF
+        executable=$(find . -name "Tetration-Calculator" -type f)
+        
+        if [ -z "$executable" ]; then
+          echo "Executable not found. Check your program name."
+          exit 1
+        fi
+        
+        # Run the program with specific input keys
+        $executable <<EOF
         Enter
         2
         5
+        Enter  # Press Enter again to finish
         EOF
 
     - name: Wait or Forcefully Kill
       run: |
         sleep 60
+
+        pkill -f Tetration-Calculator
