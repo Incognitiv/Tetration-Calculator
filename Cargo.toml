@@ -1,7 +1,7 @@
 [package]
-name = "tetration"
+name = "tetration-calculator"
 version = "1.0.0"
-edition = "2023"
+edition = "2021"
 
 [dependencies]
 num-bigint = "0.4.4"
