@@ -18,7 +18,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Rust
-        uses: actions/setup-rust@v1
+        uses: ekidd/rust-action@v1
+        with:
+          toolchain: stable  # Use the desired Rust toolchain (e.g., stable, beta, nightly)
+
       - name: Build
         run: |
           cargo build --verbose
