@@ -1,4 +1,4 @@
-name: Tetration-Calculator
+name: Rust
 
 on:
   push:
@@ -25,14 +25,13 @@ jobs:
 
     - name: Run the Program
       run: |
-        executable=$(find . -name "Tetration-Calculator" -type f)
+        executable=$(find . -name "tetration-calculator" -type f)
         
         if [ -z "$executable" ]; then
           echo "Executable not found. Check your program name."
           exit 1
         fi
         
-        # Run the program with specific input keys
         $executable <<EOF
         Enter
         2
@@ -43,5 +42,4 @@ jobs:
     - name: Wait or Forcefully Kill
       run: |
         sleep 60
-
-        pkill -f Tetration-Calculator
+        pkill -f tetration-calculator
