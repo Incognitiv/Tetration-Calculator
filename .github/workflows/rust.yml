@@ -1,33 +1,24 @@
-name: Tetration Build and Test
+name: Teration Build and Test
 
 on:
   push:
-    branches:
-      - main  # Replace with your branch name
-      
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   build:
-    name: Build and Test
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Rust
-        uses: ekidd/rust-action@v1
-        with:
-          toolchain: stable  # Use the desired Rust toolchain (e.g., stable, beta, nightly)
-
-      - name: Build
-        run: |
-          cargo build --verbose
-        continue-on-error: false
-
-      - name: Test
-        run: |
-          cargo test --verbose
-        continue-on-error: false
+    - uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: cargo fetch  # This will download and install the project's dependencies
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
