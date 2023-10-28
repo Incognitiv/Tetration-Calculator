@@ -25,6 +25,7 @@ jobs:
 
     - name: Run the Program
       run: |
+        # Find the binary executable produced by your Rust program
         executable=$(find . -name "tetration-calculator" -type f)
 
         if [ -z "$executable" ]; then
@@ -32,7 +33,25 @@ jobs:
           exit 1
         fi
 
-        cat .github/workflows/workflow_commands.txt | $executable
+        # Run the program using the 'expect' command to provide input from input.txt
+        expect -c "
+        spawn $executable
+        expect \"Enter\r\"
+        send \"Enter\n\"
+        expect \"2\r\"
+        send \"2\n\"
+        expect \"5\r\"
+        send \"5\n\"
+        expect \"Enter\r\"
+        send \"Enter\n\"
+        expect \"7\r\"
+        send \"7\n\"
+        expect \"3\r\"
+        send \"3\n\"
+        expect \"Enter\r\"
+        send \"Enter\n\"
+        interact
+        "
 
     - name: Wait or Forcefully Kill
       run: |
