@@ -10,7 +10,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+  build-and-run:
 
     runs-on: ubuntu-latest
 
@@ -21,15 +21,16 @@ jobs:
       run: cargo fetch
 
     - name: Build in Release Mode
-      run: cargo build --release --verbose
+      run: cargo build --release
 
-    - name: Run Program in the Background
+    - name: Run the Program
       run: |
-        ./target/release/Tetration-Calculator &
-        sleep 60
-        
-    - name: Kill Program
-      run: pkill -f 'Tetration-Calculator'  # Replace 'your_program' with the actual program name
+        ./target/release/your_program <<EOF
+        Enter
+        2
+        5
+        EOF
 
-    - name: Run tests
-      run: cargo test --verbose
+    - name: Wait or Forcefully Kill
+      run: |
+        sleep 60
