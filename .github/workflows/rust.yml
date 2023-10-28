@@ -1,0 +1,30 @@
+name: Tetration Build and Test
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name
+      
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Rust
+        uses: actions/setup-rust@v1
+      - name: Build
+        run: |
+          cargo build --verbose
+        continue-on-error: false
+
+      - name: Test
+        run: |
+          cargo test --verbose
+        continue-on-error: false
