@@ -25,7 +25,7 @@ jobs:
 
     - name: Run the Program
       run: |
-        ./target/release/your_program <<EOF
+        ./home/runner/work/Tetration-Calculator/Tetration-Calculator <<EOF
         Enter
         2
         5
