@@ -39,7 +39,7 @@ jobs:
         
     - name: Wait and Kill the Process
       run: |
-        sleep 60
+        sleep 10
         if pgrep -f tetration-calculator; then
           pkill -f tetration-calculator
         fi
