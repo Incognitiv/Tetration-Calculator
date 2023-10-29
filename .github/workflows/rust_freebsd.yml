@@ -1,0 +1,53 @@
+name: Rust_FreeBSD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-and-run:
+
+    runs-on: freebsd-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Rust
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        export PATH="$HOME/.cargo/bin:$PATH"
+      shell: sh
+
+    - name: Install Dependencies
+      run: cargo fetch
+
+    - name: Re-build in Release Mode
+      run: cargo clean
+
+    - name: Re-build in Release Mode
+      run: cargo build --release
+
+    - name: Run the Program on FreeBSD
+      run: |
+        executable=$(find . -name "tetration-calculator" -type f)
+
+        if [ -z "$executable" ]; then
+          echo "Executable not found. Check your program name."
+          exit 1
+        fi
+
+        $executable --base 2 --height 5
+        sleep 5
+        $executable --base 7 --height 3
+
+    - name: Wait and Kill the Process
+      run: |
+        sleep 10
+        if pgrep -f tetration-calculator; then
+          pkill -f tetration-calculator
+        fi
