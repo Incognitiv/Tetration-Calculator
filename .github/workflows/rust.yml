@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Dependencies
         run: cargo fetch
-      - name: Re-build in Release Mode
+      - name: Clean the Cargo
         run: cargo clean
       - name: Re-build in Release Mode
         run: cargo build --release
@@ -27,7 +27,6 @@ jobs:
             echo "Executable not found. Check your program name."
             exit 1
           fi
-          # Run the program with your specific command
           $executable --base 2 --height 5
           sleep 5
           $executable --base 7 --height 3
@@ -43,7 +42,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Dependencies
         run: cargo fetch
-      - name: Re-build in Release Mode
+      - name: Clean the Cargo
         run: cargo clean
       - name: Re-build in Release Mode
         run: cargo build --release
@@ -54,7 +53,6 @@ jobs:
             echo "Executable not found. Check your program name."
             exit 1
           fi
-          # Run the program with your specific command
           $executable --base 2 --height 5
           sleep 5
           $executable --base 7 --height 3
@@ -70,7 +68,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Dependencies
         run: cargo fetch
-      - name: Re-build in Release Mode
+      - name: Clean the Cargo
         run: cargo clean
       - name: Re-build in Release Mode
         run: cargo build --release
@@ -81,14 +79,13 @@ jobs:
             Write-Host "Executable not found. Check your program name."
             exit 1
           }
-          # Run the program with your specific command
           & $executable --base 2 --height 5
           Start-Sleep -Seconds 5
           & $executable --base 7 --height 3
       - name: Wait and Kill the Process
         run: |
           Start-Sleep -Seconds 10
-          if (Get-Process -Name "tetration-calculator" -ErrorAction SilentlyContinue) {
+          $process = Get-Process -Name "tetration-calculator" -ErrorAction SilentlyContinue
+          if ($process -ne $null) {
             Stop-Process -Name "tetration-calculator" -Force
           }
-
