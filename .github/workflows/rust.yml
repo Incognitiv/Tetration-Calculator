@@ -10,36 +10,85 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build-and-run:
-
+  build-and-run-linux:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: cargo fetch
+      - name: Re-build in Release Mode
+        run: cargo clean
+      - name: Re-build in Release Mode
+        run: cargo build --release
+      - name: Run the Program on Linux
+        run: |
+          executable=$(find . -name "tetration-calculator" -type f)
+          if [ -z "$executable" ]; then
+            echo "Executable not found. Check your program name."
+            exit 1
+          fi
+          # Run the program with your specific command
+          $executable --base 2 --height 5
+          sleep 5
+          $executable --base 7 --height 3
+      - name: Wait and Kill the Process
+        run: |
+          sleep 10
+          if pgrep -f tetration-calculator; then
+            pkill -f tetration-calculator
 
-    - name: Install Dependencies
-      run: cargo fetch
+  build-and-run-freebsd:
+    runs-on: freebsd-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: cargo fetch
+      - name: Re-build in Release Mode
+        run: cargo clean
+      - name: Re-build in Release Mode
+        run: cargo build --release
+      - name: Run the Program on FreeBSD
+        run: |
+          executable=$(find . -name "tetration-calculator" -type f)
+          if [ -z "$executable" ]; then
+            echo "Executable not found. Check your program name."
+            exit 1
+          fi
+          # Run the program with your specific command
+          $executable --base 2 --height 5
+          sleep 5
+          $executable --base 7 --height 3
+      - name: Wait and Kill the Process
+        run: |
+          sleep 10
+          if pgrep -f tetration-calculator; then
+            pkill -f tetration-calculator
 
-    - name: Build in Release Mode
-      run: cargo build --release
+  build-and-run-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: cargo fetch
+      - name: Re-build in Release Mode
+        run: cargo clean
+      - name: Re-build in Release Mode
+        run: cargo build --release
+      - name: Run the Program on Windows
+        run: |
+          $executable = Get-Item -Path "$(Get-Location)/*.exe"
+          if ($executable -eq $null) {
+            Write-Host "Executable not found. Check your program name."
+            exit 1
+          }
+          # Run the program with your specific command
+          & $executable --base 2 --height 5
+          Start-Sleep -Seconds 5
+          & $executable --base 7 --height 3
+      - name: Wait and Kill the Process
+        run: |
+          Start-Sleep -Seconds 10
+          if (Get-Process -Name "tetration-calculator" -ErrorAction SilentlyContinue) {
+            Stop-Process -Name "tetration-calculator" -Force
+          }
 
-    - name: Run the Program
-      run: |
-        executable=$(find . -name "tetration-calculator" -type f)
-
-        if [ -z "$executable" ]; then
-          echo "Executable not found. Check your program name."
-          exit 1
-        fi
-
-        # Run the program with your specific command
-        $executable --base 2 --height 5
-        sleep 5
-        $executable --base 7 --height 3
-        
-    - name: Wait and Kill the Process
-      run: |
-        sleep 10
-        if pgrep -f tetration-calculator; then
-          pkill -f tetration-calculator
-        fi
