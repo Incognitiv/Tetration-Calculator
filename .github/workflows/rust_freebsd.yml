@@ -5,15 +5,16 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+    
+  repository_dispatch:
+    types: [run-child-workflow]
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build-and-run:
-
+  child_job:
     runs-on: freebsd-latest
-
+  
     steps:
     - uses: actions/checkout@v2
 
