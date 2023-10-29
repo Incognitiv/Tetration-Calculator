@@ -1,0 +1,53 @@
+name: Rust_Windows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_run_windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install Dependencies
+        run: cargo fetch
+
+      - name: Re-build in Release Mode
+        run: cargo clean
+
+      - name: Re-build in Release Mode
+        run: cargo build --release
+
+      - name: Run the Program on Windows
+        run: |
+          $executable = Get-ChildItem -Recurse -Filter tetration-calculator.exe | Select-Object -First 1
+
+          if ($executable -eq $null) {
+            Write-Host "Executable not found. Check your program name."
+            exit 1
+          }
+
+          # Run the program with your specific command
+          & $executable --base 2 --height 5
+          Start-Sleep -Seconds 5
+          & $executable --base 7 --height 3
+
+      - name: Wait and Kill the Process
+        run: |
+          Start-Sleep -Seconds 10
+          if (Get-Process -Name "tetration-calculator" -ErrorAction SilentlyContinue) {
+            Stop-Process -Name "tetration-calculator" -Force
+          }
