@@ -12,10 +12,10 @@ env:
 jobs:
   build-and-run:
 
-    runs-on: freebsd-latest  # Use FreeBSD runner
+    runs-on: freebsd-latest
 
     steps:
-    - uses: actions/checkout@v2  # Use v2
+    - uses: actions/checkout@v2
 
     - name: Install Rust
       run: |
@@ -41,7 +41,6 @@ jobs:
           exit 1
         fi
 
-        # Run the program with your specific command
         $executable --base 2 --height 5
         sleep 5
         $executable --base 7 --height 3
