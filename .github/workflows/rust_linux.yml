@@ -1,0 +1,53 @@
+name: Rust_Linux
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_run:
+    workflows: ["Rust_Linux", "Rust_FreeBSD"]
+    types:
+      - completed
+      
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-and-run:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Dependencies
+      run: cargo fetch
+
+    - name: Re-build in Release Mode
+      run: cargo clean
+    
+    - name: Re-build in Release Mode
+      run: cargo build --release
+
+    - name: Run the Program on Linux
+      run: |
+        executable=$(find . -name "tetration-calculator" -type f)
+
+        if [ -z "$executable" ]; then
+          echo "Executable not found. Check your program name."
+          exit 1
+        fi
+
+        # Run the program with your specific command
+        $executable --base 2 --height 5
+        sleep 5
+        $executable --base 7 --height 3
+        
+    - name: Wait and Kill the Process
+      run: |
+        sleep 10
+        if pgrep -f tetration-calculator; then
+          pkill -f tetration-calculator
+        fi
