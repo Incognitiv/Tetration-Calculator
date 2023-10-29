@@ -1,6 +1,13 @@
 # Tetration-Calculator
 A Rust-based tool for performing tetration calculations, allowing you to compute the result of tetration operations with ease and benchmark it a little.
 
+Runs properly on 
+
+[![Linux](https://github.com/Incognitiv/Tetration-Calculator/actions/workflows/rust_linux.yml/badge.svg)](https://github.com/Incognitiv/Tetration-Calculator/actions/workflows/rust_linux.yml)
+
+[![Windows](https://github.com/Incognitiv/Tetration-Calculator/actions/workflows/rust_windows.yml/badge.svg)](https://github.com/Incognitiv/Tetration-Calculator/actions/workflows/rust_windows.yml)
+
+
 ## Table of Contents
 
 - [Introduction](#introduction)
