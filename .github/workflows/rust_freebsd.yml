@@ -11,24 +11,22 @@ env:
 
 jobs:
   build-and-run:
-
     runs-on: freebsd-latest
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Install Rust
+    - uses: actions/checkout@v2 
+    
+    - name: Set up Rust on FreeBSD
       run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        export PATH="$HOME/.cargo/bin:$PATH"
-      shell: sh
+        sudo pkg install -y rust
+      shell: bash
 
     - name: Install Dependencies
       run: cargo fetch
 
     - name: Re-build in Release Mode
       run: cargo clean
-
+    
     - name: Re-build in Release Mode
       run: cargo build --release
 
@@ -41,10 +39,11 @@ jobs:
           exit 1
         fi
 
+        # Run the program with your specific command
         $executable --base 2 --height 5
         sleep 5
         $executable --base 7 --height 3
-
+        
     - name: Wait and Kill the Process
       run: |
         sleep 10
