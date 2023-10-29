@@ -2,14 +2,16 @@ name: Rust_Linux
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  trigger_child_workflow_job:
+  build-and-run:
+
     runs-on: ubuntu-latest
 
     steps:
