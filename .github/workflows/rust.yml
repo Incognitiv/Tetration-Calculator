@@ -37,7 +37,9 @@ jobs:
         sleep 5
         $executable --base 7 --height 3
         
-    - name: Wait or Forcefully Kill
+    - name: Wait and Kill the Process
       run: |
         sleep 60
-        pkill -f tetration-calculator
+        if pgrep -f tetration-calculator; then
+          pkill -f tetration-calculator
+        fi
