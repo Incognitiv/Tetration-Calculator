@@ -1,5 +1,3 @@
-// tetration_calculator.rs
-
 // Define a public module named 'tetration_calculator' used to organize and encapsulate related code
 pub mod tetration_calculator {
 
@@ -69,22 +67,32 @@ pub mod tetration_calculator {
             self.height // Get the current height value from the calculator
         }
         
-        // Calculate the tetration with the current base and height values
+        // This function calculates the tetration and returns an optional BigUint result in the iterative form
         pub fn calculate_tetration(&self) -> Option<BigUint> {
-            let mut tetration_result = BigUint::from(1u8);  // Initialize a BigUint with a value of 1
-            let mut height = self.height;  // Create a mutable variable "height" and initialize it with the value of "self.height"
-
-            while height > 0 {  // Start a loop that continues as long as "height" is greater than 0
-                let base_as_bigint = BigUint::from(self.base);  // Convert the "base" value from the calculator to a BigUint, a big integer type
-            
-                tetration_result = match tetration_result.to_u32() {  // Convert "tetration_result" to a u32, and use a match statement to handle the result
-                            Some(tet_result_u32) => base_as_bigint.pow(tet_result_u32),  // Perform the tetration operation
-                    None => return None,  // Return None if the conversion to u32 fails
-                };
-                height -= 1;  // Decrement the height
+        
+            // If the height is 0, the result is 1.
+            if self.height == 0 {
+                return Some(BigUint::from(1u8));
             }
-            Some(tetration_result)  // Return the calculated tetration result
+        
+            // Convert the base to a BigUint.
+            let base_as_bigint = BigUint::from(self.base);
+        
+            // Initialize the result with the base.
+            let mut tetration_result = base_as_bigint.clone();
+        
+            // Repeat the tetration operation 'self.height - 1' times.
+            for _ in 1..self.height {
+        
+                // Calculate the tetration result by raising the base to the power of 'tetration_result', which is the result of the previous iteration, converted to u32
+                // The '?'' operator is used for error handling and unwraps the result or returns None if the conversion fails
+                tetration_result = base_as_bigint.pow(tetration_result.to_u32()?);
+            }
+        
+            // Return the calculated tetration result wrapped in an Option
+            Some(tetration_result)
         }
+        
     }
 
     // This function takes generic parameters and is used to validate and set input values
@@ -92,7 +100,7 @@ pub mod tetration_calculator {
     // "prompt" is a message that will be displayed to the user
     // "error_message" is a message to display in case of an error
     // "setter" is a function to set a value in the calculator
-    fn validate_input<F>(calculator: &mut TetrationCalculator, prompt: &str, error_message: &str, setter: F, ) -> Result<(), String> where F: Fn(&mut TetrationCalculator, u128) {
+    pub fn validate_input<F>(calculator: &mut TetrationCalculator, prompt: &str, error_message: &str, setter: F, ) -> Result<(), String> where F: Fn(&mut TetrationCalculator, u128) {
 
         // Create a new input prompt for u128 values with the given "prompt" message, then interact with the user to obtain input
         let input = Input::<u128>::new().with_prompt(prompt).interact();
