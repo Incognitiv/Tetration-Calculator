@@ -1,8 +1,8 @@
-use structopt::StructOpt;                                               // Import the StructOpt trait, which is used for command-line argument parsing
-use tetration_calculator::tetration_calculator::TetrationCalculator;    // Import the TetrationCalculator struct from the 'tetration_calculator' module
-
 // Declare the 'tetration_calculator' module, which is expected to contain tetration calculation functionality
 mod tetration_calculator;                                               
+
+use structopt::StructOpt;                                               // Import the StructOpt trait, which is used for command-line argument parsing
+use tetration_calculator::tetration_calculator::TetrationCalculator;    // Import the TetrationCalculator struct from the 'tetration_calculator' module
 
 #[derive(Debug, StructOpt)]
 
