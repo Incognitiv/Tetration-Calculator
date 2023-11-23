@@ -20,9 +20,15 @@ jobs:
     - name: Install Dependencies
       run: cargo fetch
 
-    - name: Re-build in Release Mode
+    - name: Clean
       run: cargo clean
-    
+
+    - name: Run Cargo clippy
+      run: cargo clippy --all -- -D warnings
+  
+    - name: Clean again
+      run: cargo clean
+
     - name: Re-build in Release Mode
       run: cargo build --release
 
